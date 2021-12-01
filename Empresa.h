@@ -39,12 +39,6 @@ public:
     }
     Arreglo<Producto> getProductos()
     {
-        cout << "Productos: AAAA" << endl;
-        for (int i = 0; i < productos.obtenerTamano(); i++)
-        {
-
-            cout << productos[i].getNombre() << endl;
-        }
         return productos;
     }
     void imprimirProductos()
@@ -57,10 +51,6 @@ public:
     void agregarProducto(Producto producto)
     {
         productos.agregar(producto);
-        for (int i = 0; i < productos.obtenerTamano(); i++)
-        {
-            cout << productos[i].getNombre() << endl;
-        }
     }
     int buscarProducto(string nombre)
     {

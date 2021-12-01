@@ -97,16 +97,11 @@ public:
     {
         //Producto producto(nombreProducto, descripcion, precio, cantidad);
         int indice = buscarEmpresa(nombreEmpresa);
-        cout << "indice " << nombreEmpresa << ": " << indice << endl;
         if (indice != -1)
         {
             Producto producto(nombreProducto, descripcion, precio, cantidad);
-            cout << "producto: " << producto.getNombre() << endl;
             empresas[indice].agregarProducto(producto);
-            cout << "producto agregado" << endl;
-            cout << "Empresa: " << empresas[indice].getNombreEmpresa() << endl;
             Arreglo<Producto> pasrsa = empresas[indice].getProductos();
-            cout << "producto: " << pasrsa[0].getNombre() << endl;
         }
     }
     void eliminarProducto(string nombreEmpresa, string nombreProducto)
@@ -139,10 +134,8 @@ public:
         int indice = buscarEmpresa(nombreEmpresa);
         if (indice != -1)
         {
-            cout << indice << endl;
             return empresas[indice].getProductos();
         }
-        cout << "listar PRod vacio" << endl;
         Arreglo<Producto> vacio;
         return vacio;
     }
@@ -180,6 +173,7 @@ public:
             for (int j = 0; j < empresas[i].getProductos().obtenerTamano(); j++)
             {
                 archivo << empresas[i].getProductos()[j].getNombre() << endl;
+                archivo << empresas[i].getProductos()[j].getDescripcion() << endl;
                 archivo << empresas[i].getProductos()[j].getPrecio() << endl;
                 archivo << empresas[i].getProductos()[j].getCantidad() << endl;
             }
@@ -264,55 +258,80 @@ public:
         archivo.open("Gobierno.txt");
         if (archivo.is_open())
         {
+            cout << "Archivo abierto" << endl;
             int tamanoUsuarios;
             archivo >> tamanoUsuarios;
+            cout << "Usuarios: " << tamanoUsuarios << endl;
+            string nombre, nombreProducto, descripcion;
+            int dinero, precio, cantidad, tamanoCarrito;
+            Usuario usuario;
+            Producto producto;
             for (int i = 0; i < tamanoUsuarios; i++)
             {
-                string nombre;
-                int dinero;
                 archivo >> nombre;
                 archivo >> dinero;
-                Usuario usuario(nombre, dinero);
-                int tamanoCarrito;
+                cout << "Usuario: " << nombre << endl;
+                cout << "Dinero: " << dinero << endl;
+                usuario = Usuario(nombre, dinero);
+                cout << "Carrito: " << endl;
                 archivo >> tamanoCarrito;
+                cout << "Cantidad de productos: " << tamanoCarrito << endl;
                 for (int j = 0; j < tamanoCarrito; j++)
                 {
-                    string nombreProducto;
-                    string descripcion;
-                    int precio;
-                    int cantidad;
                     archivo >> nombreProducto;
                     archivo >> descripcion;
                     archivo >> precio;
                     archivo >> cantidad;
-                    Producto producto(nombreProducto, descripcion, precio, cantidad);
+                    cout << "Producto: " << nombreProducto << endl;
+                    cout << "Descripcion: " << descripcion << endl;
+                    cout << "Precio: " << precio << endl;
+                    cout << "Cantidad: " << cantidad << endl;
+
+                    producto = Producto(nombreProducto, descripcion, precio, cantidad);
+                    cout << "Producto agregado" << endl;
                     usuario.agregarProducto(producto);
+                    cout << "Producto agregado al carrito" << endl;
                 }
                 usuarios.agregar(usuario);
+                cout << "Usuario agregado" << endl;
             }
-            int tamanoEmpresas;
+            cout << "Usuarios cargados" << endl;
+            int tamanoEmpresas, tamanoProductos;
             archivo >> tamanoEmpresas;
+            cout << "Empresas: " << tamanoEmpresas << endl;
+            string nombreEmpresa;
+            Empresa empresa;
             for (int i = 0; i < tamanoEmpresas; i++)
             {
-                string nombreEmpresa;
                 archivo >> nombreEmpresa;
-                int tamanoProductos;
                 archivo >> tamanoProductos;
+                cout << "Empresa: " << nombreEmpresa << endl;
+                cout << "Cantidad de productos: " << tamanoProductos << endl;
+                empresa = Empresa(nombreEmpresa);
                 for (int j = 0; j < tamanoProductos; j++)
                 {
-                    string nombreProducto;
-                    string descripcion;
-                    int precio;
-                    int cantidad;
                     archivo >> nombreProducto;
                     archivo >> descripcion;
                     archivo >> precio;
                     archivo >> cantidad;
-                    Producto producto(nombreProducto, descripcion, precio, cantidad);
-                    empresas[i].agregarProducto(producto);
+                    cout << "Producto: " << nombreProducto << endl;
+                    cout << "Descripcion: " << descripcion << endl;
+                    cout << "Precio: " << precio << endl;
+                    cout << "Cantidad: " << cantidad << endl;
+                    //producto = Producto(nombreProducto, descripcion, precio, cantidad);
+                    cout << "Producto agregado" << endl;
+                    //Verificar si el producto se guardo bien
+                    /*cout << "nom: " << producto.getNombre() << endl;
+                    cout << "des: " << producto.getDescripcion() << endl;
+                    cout << "pre: " << producto.getPrecio() << endl;
+                    cout << "can: " << producto.getCantidad() << endl;*/
+                    empresa.agregarProducto(Producto(nombreProducto, descripcion, precio, cantidad));
+                    cout << "Producto agregado a la empresa" << endl;
                 }
+                empresas.agregar(empresa);
             }
         }
+        archivo.close();
     }
     ~Gobierno()
     {

@@ -1,96 +1,158 @@
 //Iván Alberto Romero Wells A00833623
-//Ariadna Daniela Medina García A01748822
+//Ariadna Daniela Medina Gracia A01748822
 #include <bits/stdc++.h>
 #include "Arreglo.h"
 #include "Empresa.h"
-#include "Producto.h"
 #include "Usuarios.h"
+#include "Producto.h"
+#include "Gobierno.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Iván Alberto Romero Wells A00833623" << endl;
-    cout << "Ariadna Daniela Medina García A01748822" << endl;
-    Producto Pan("Pan", "Pan blanco BIMBO", 24, 15);
-    cout << "Producto 1: " << Pan.getNombre() << endl;
-    Producto Leche("Leche", "Leche de vaca Jersey", 25, 10);
-    cout << "Producto 2: " << Leche.getNombre() << endl;
-    Producto Carne("Carne", "Carne de cerdo", 30, 20);
-    cout << "Producto 3: " << Carne.getNombre() << endl;
-    Producto Queso("Queso", "Queso de cabra", 35, 15);
-    cout << "Producto 4: " << Queso.getNombre() << endl;
-    Producto Arroz("Arroz", "Arroz de maiz", 40, 10);
-    cout << "Producto 5: " << Arroz.getNombre() << endl;
-    Producto TV("TV", "TV de plasma", 3500, 5);
-    cout << "Producto 6: " << TV.getNombre() << endl;
+    Gobierno gobierno;
 
-    Arreglo<Producto> Productos;
-    Productos.agregar(Pan);
-    Productos.agregar(Leche);
-    Productos.agregar(Carne);
-    Productos.agregar(Queso);
-    Productos.agregar(Arroz);
-    Productos.agregar(TV);
-
-    Empresa Soriana("Soriana", Productos);
-    cout << "Empresa: " << Soriana.getNombreEmpresa() << endl;
-    cout << "Productos: " << endl;
-    Arreglo<Producto> ProductosEmpresa(Soriana.getProductos());
-    for (int i = 0; i < ProductosEmpresa.obtenerTamano(); i++)
+    cout << "Bienvenido al sistema Gubernamental de administracion de la empresa" << endl;
+    int opcion;
+    while (true)
     {
-        cout << ProductosEmpresa[i].getNombre() << endl;
+        cout << "Menu de opciones" << endl;
+        cout << "1. Crear usuario" << endl;
+        cout << "2. Crear empresa" << endl;
+        cout << "3. Crear producto" << endl;
+        cout << "4. Ver usuarios" << endl;
+        cout << "5. Ver empresas" << endl;
+        cout << "6. Ver productos" << endl;
+        cout << "7. Comprar producto" << endl;
+        cout << "8. Ver Saldo" << endl;
+        cout << "9. Ver Inventario" << endl;
+        cout << "10. Guardar" << endl;
+        cout << "11. Cargar" << endl;
+        cout << "12. Salir" << endl;
+
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+        string nombre, nombreEmpresa, nombreProducto, descripcion, compra;
+        Arreglo<Producto> productos;
+        Arreglo<Usuario> usuarios;
+        Arreglo<Empresa> empresas;
+        Usuario usuario;
+        int saldo, cantidad, precio;
+        switch (opcion)
+        {
+        case 1:
+            // crear usuario
+            cout << "Crear usuario" << endl;
+            cout << "Ingrese el nombre del usuario: ";
+            cin >> nombre;
+            cout << "Ingrese el saldo del usuario: ";
+            cin >> saldo;
+            gobierno.agregarUsuario(nombre, saldo);
+            break;
+        case 2:
+            // crear empresa
+            cout << "Crear empresa" << endl;
+            cout << "Ingrese el nombre de la empresa: ";
+            cin >> nombreEmpresa;
+            gobierno.agregarEmpresa(nombreEmpresa);
+            break;
+        case 3:
+            // crear producto
+            cout << "Crear producto" << endl;
+            cout << "Ingrese el nombre de la empresa: ";
+            cin >> nombreEmpresa;
+            cout << "Ingrese el nombre del producto: ";
+            cin >> nombreProducto;
+            cout << "Ingrese la descripcion del producto: ";
+            cin >> descripcion;
+            cout << "Ingrese el precio del producto: ";
+            cin >> precio;
+            cout << "Ingrese la cantidad del producto: ";
+            cin >> cantidad;
+            gobierno.agregarProducto(nombreEmpresa, nombreProducto, descripcion, precio, cantidad);
+            break;
+        case 4:
+            // ver usuarios
+            cout << "Ver usuarios" << endl;
+            usuarios = gobierno.listarUsuarios();
+            for (int i = 0; i < usuarios.obtenerTamano(); i++)
+            {
+                cout << usuarios[i].getNombre() << endl;
+            }
+            break;
+        case 5:
+            // ver empresas
+            cout << "Ver empresas" << endl;
+            empresas = gobierno.listarEmpresas();
+
+            for (int i = 0; i < empresas.obtenerTamano(); i++)
+            {
+                cout << empresas[i].getNombreEmpresa() << endl;
+            }
+            break;
+        case 6:
+            // ver productos
+            cout << "Ver productos empresa" << endl;
+            cout << "Ingrese el nombre de la empresa: ";
+            cin >> nombreEmpresa;
+            productos = gobierno.listarProductos(nombreEmpresa);
+            for (int i = 0; i < productos.obtenerTamano(); i++)
+            {
+                cout << productos[i].getNombre() << endl;
+            }
+            break;
+        case 7:
+            // comprar producto
+            cout << "Comprar producto" << endl;
+            cout << "Ingrese el nombre de la empresa: ";
+            cin >> nombreEmpresa;
+            cout << "Ingrese el nombre del usuario: ";
+            cin >> nombre;
+            cout << "Ingrese el nombre del producto: ";
+            cin >> nombreProducto;
+            cout << "Ingrese la cantidad del producto: ";
+            cin >> cantidad;
+            compra = gobierno.Compra(nombre, nombreEmpresa, nombreProducto, cantidad);
+            cout << compra << endl;
+            break;
+        case 8:
+            // ver saldo
+            cout << "Ver saldo" << endl;
+            cout << "Ingrese el nombre del usuario: ";
+            cin >> nombre;
+            usuario = gobierno.getUsuario(nombre);
+            cout << "El saldo del usuario es: " << usuario.getDinero() << endl;
+            break;
+        case 9:
+            cout << "Ver inventario" << endl;
+            cout << "Ingrese el nombre del usuario: ";
+            cin >> nombre;
+            usuario = gobierno.getUsuario(nombre);
+            cout << "El inventario del usuario es: " << endl;
+            for (int i = 0; i < usuario.getCarrito().obtenerTamano(); i++)
+            {
+                cout << usuario.getCarrito()[i].getNombre() << endl;
+            }
+            break;
+        case 10:
+            // guardar
+            cout << "Guardar" << endl;
+            gobierno.guardar();
+            break;
+        case 11:
+            // cargar
+            cout << "Cargar" << endl;
+            gobierno.cargar();
+            break;
+        case 12:
+            // salir
+            cout << "Salir" << endl;
+            return 0;
+            break;
+        default:
+            cout << "Opcion no valida" << endl;
+            break;
+        }
     }
-    Usuario Usuario1("Ivan", 1000);
-    Usuario Usuario2("Ariadna", 2000);
-    Usuario Usuario3("Yair", 4000);
-
-    //Interaccion Mercado-Usuarios
-    cout << endl;
-    //usuario1 comprar pan, leche y carne
-    cout << "Usuario1 comprar Pan, Leche y Carne" << endl;
-    string compra1 = Soriana.comprarProducto(&Usuario1, "Pan", 1);
-    cout << "Pan: " << compra1 << endl;
-    string compra2 = Soriana.comprarProducto(&Usuario1, "Leche", 1);
-    cout << "Leche: " << compra2 << endl;
-    string compra3 = Soriana.comprarProducto(&Usuario1, "Carne", 2);
-    cout << "Carne: " << compra3 << endl;
-    cout << endl;
-    //usuario2 comprar queso, leche y arroz
-    cout << "Usuario2 comprar Queso, Leche y Arroz" << endl;
-    string compra4 = Soriana.comprarProducto(&Usuario2, "Queso", 1);
-    cout << "Queso: " << compra4 << endl;
-    string compra5 = Soriana.comprarProducto(&Usuario2, "Leche", 1);
-    cout << "Leche: " << compra5 << endl;
-    string compra6 = Soriana.comprarProducto(&Usuario2, "Arroz", 1);
-    cout << "Arroz: " << compra6 << endl;
-    cout << endl;
-    //usuario1 intenta comprar una TV
-    cout << "Usuario1 intenta comprar una TV" << endl;
-    string compra7 = Soriana.comprarProducto(&Usuario1, "TV", 1);
-    cout << "TV: " << compra7 << endl;
-    cout << endl;
-    //usuario3 compar TV
-    cout << "Usuario3 comprar TV" << endl;
-    string compra8 = Soriana.comprarProducto(&Usuario3, "TV", 1);
-    cout << "TV: " << compra8 << endl;
-    cout << endl;
-
-    Usuario Usuario4("Juan", 5000);
-    //usuario4 intenta comprar toda la leche
-    cout << "Usuario4 intenta comprar toda la leche" << endl;
-    string compra9 = Soriana.comprarProducto(&Usuario4, "Leche", Soriana.obtenerProducto("Leche").getCantidad());
-    cout << "Leche: " << compra9 << endl;
-    cout << endl;
-    //usuario4 intenta comprar una leche mas
-    cout << "Usuario4 intenta comprar una leche mas" << endl;
-    string compra11 = Soriana.comprarProducto(&Usuario4, "Leche", 1);
-    cout << "Leche: " << compra11 << endl;
-    cout << endl;
-
-    //Usuario2 intenta comprar un producto que no esta en la lista
-    cout << "Usuario2 intenta comprar un producto que no esta en la lista" << endl;
-    string compra10 = Soriana.comprarProducto(&Usuario2, "Cafe", 1);
-    cout << "Cafe: " << compra10 << endl;
-    cout << endl;
 }
