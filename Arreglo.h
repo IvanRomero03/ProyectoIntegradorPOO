@@ -114,14 +114,14 @@ public:
     {
         return !(*this == otroArreglo);
     }
-    void operator=(Arreglo<T> *otroArreglo)
+    void operator=(Arreglo<T> otroArreglo)
     {
-        this->tamano = (*otroArreglo).obtenerTamano();
-        this->capacidad = (*otroArreglo).obtenerCapacidad();
+        this->tamano = otroArreglo.obtenerTamano();
+        this->capacidad = otroArreglo.obtenerCapacidad();
         this->arreglo = new T[capacidad];
         for (int i = 0; i < tamano; i++)
         {
-            this->arreglo[i] = (*otroArreglo)[i];
+            this->arreglo[i] = otroArreglo[i];
         }
     }
     ~Arreglo()

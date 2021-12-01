@@ -16,10 +16,10 @@ int main()
     gobierno.agregarUsuario("Ariadna", 2000);
     gobierno.agregarUsuario("Pedro", 3000);
 
-    Arreglo<Usuario> *usuarios = gobierno.listarUsuarios();
-    for (int i = 0; i < usuarios->obtenerTamano(); i++)
+    Arreglo<Usuario> usuarios = gobierno.listarUsuarios();
+    for (int i = 0; i < usuarios.obtenerTamano(); i++)
     {
-        cout << (*usuarios)[i].getNombre() << endl;
+        cout << usuarios[i].getNombre() << endl;
     }
 
     gobierno.agregarEmpresa("HeB");
@@ -42,7 +42,7 @@ int main()
     gobierno.agregarProducto("Nike", "Camiseta", "Camiseta de futbol", 20, 50);
     gobierno.agregarProducto("Nike", "Sandalia", "Sandalia de futbol", 30, 10);
 
-    Arreglo<Empresa> *empresas = gobierno.listarEmpresas();
+    Arreglo<Empresa> empresas = gobierno.listarEmpresas();
     for (int i = 0; i < empresas->obtenerTamano(); i++)
     {
         cout << (*empresas)[i].getNombreEmpresa() << endl;

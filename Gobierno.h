@@ -106,7 +106,7 @@ public:
             cout << "producto agregado" << endl;
             cout << "Empresa: " << empresas[indice].getNombreEmpresa() << endl;
             Arreglo<Producto> pasrsa = empresas[indice].getProductos();
-            cout << "producto: " << pasrsa[indice].getNombre() << endl;
+            cout << "producto: " << pasrsa[0].getNombre() << endl;
         }
     }
     void eliminarProducto(string nombreEmpresa, string nombreProducto)
@@ -134,22 +134,25 @@ public:
         else
             return "No se encontraron los datos";
     }
-    Arreglo<Producto> *listarProductos(string nombreEmpresa)
+    Arreglo<Producto> listarProductos(string nombreEmpresa)
     {
         int indice = buscarEmpresa(nombreEmpresa);
         if (indice != -1)
         {
-            return empresas[indice].punteroProductos();
+            cout << indice << endl;
+            return empresas[indice].getProductos();
         }
-        return NULL;
+        cout << "listar PRod vacio" << endl;
+        Arreglo<Producto> vacio;
+        return vacio;
     }
-    Arreglo<Empresa> *listarEmpresas()
+    Arreglo<Empresa> listarEmpresas()
     {
-        return &empresas;
+        return empresas;
     }
-    Arreglo<Usuario> *listarUsuarios()
+    Arreglo<Usuario> listarUsuarios()
     {
-        return &usuarios;
+        return usuarios;
     }
     void guardar()
     {
@@ -235,23 +238,25 @@ public:
         }
         archivo.close();
     }
-    Usuario *getUsuario(string nombre)
+    Usuario getUsuario(string nombre)
     {
         int indice = buscarUsuario(nombre);
         if (indice != -1)
         {
-            return &usuarios[indice];
+            return usuarios[indice];
         }
-        return NULL;
+        Usuario vacio;
+        return vacio;
     }
-    Empresa *getEmpresa(string nombre)
+    Empresa getEmpresa(string nombre)
     {
         int indice = buscarEmpresa(nombre);
         if (indice != -1)
         {
-            return &empresas[indice];
+            return empresas[indice];
         }
-        return NULL;
+        Empresa vacio;
+        return vacio;
     }
     void cargar()
     {

@@ -34,10 +34,10 @@ int main()
         cout << "Ingrese una opcion: ";
         cin >> opcion;
         string nombre, nombreEmpresa, nombreProducto, descripcion, compra;
-        Arreglo<Producto> *productos;
-        Arreglo<Usuario> *usuarios;
-        Arreglo<Empresa> *empresas;
-        Usuario *usuario;
+        Arreglo<Producto> productos;
+        Arreglo<Usuario> usuarios;
+        Arreglo<Empresa> empresas;
+        Usuario usuario;
         int saldo, cantidad, precio;
         switch (opcion)
         {
@@ -77,18 +77,19 @@ int main()
             // ver usuarios
             cout << "Ver usuarios" << endl;
             usuarios = gobierno.listarUsuarios();
-            for (int i = 0; i < usuarios->obtenerTamano(); i++)
+            for (int i = 0; i < usuarios.obtenerTamano(); i++)
             {
-                cout << (*usuarios)[i].getNombre() << endl;
+                cout << usuarios[i].getNombre() << endl;
             }
             break;
         case 5:
             // ver empresas
             cout << "Ver empresas" << endl;
             empresas = gobierno.listarEmpresas();
-            for (int i = 0; i < empresas->obtenerTamano(); i++)
+
+            for (int i = 0; i < empresas.obtenerTamano(); i++)
             {
-                cout << (*empresas)[i].getNombreEmpresa() << endl;
+                cout << empresas[i].getNombreEmpresa() << endl;
             }
             break;
         case 6:
@@ -97,9 +98,10 @@ int main()
             cout << "Ingrese el nombre de la empresa: ";
             cin >> nombreEmpresa;
             productos = gobierno.listarProductos(nombreEmpresa);
-            for (int i = 0; i < productos->obtenerTamano(); i++)
+            cout << "Tam" << productos.obtenerTamano() << endl;
+            for (int i = 0; i < productos.obtenerTamano(); i++)
             {
-                cout << (*productos)[i].getNombre() << endl;
+                cout << productos[i].getNombre() << endl;
             }
             break;
         case 7:
@@ -122,7 +124,7 @@ int main()
             cout << "Ingrese el nombre del usuario: ";
             cin >> nombre;
             usuario = gobierno.getUsuario(nombre);
-            cout << "El saldo del usuario es: " << (*usuario).getDinero() << endl;
+            cout << "El saldo del usuario es: " << usuario.getDinero() << endl;
             break;
         case 9:
             cout << "Ver inventario" << endl;
@@ -130,9 +132,9 @@ int main()
             cin >> nombre;
             usuario = gobierno.getUsuario(nombre);
             cout << "El inventario del usuario es: " << endl;
-            for (int i = 0; i < (*usuario).getCarrito().obtenerTamano(); i++)
+            for (int i = 0; i < usuario.getCarrito().obtenerTamano(); i++)
             {
-                cout << (*usuario).getCarrito()[i].getNombre() << endl;
+                cout << usuario.getCarrito()[i].getNombre() << endl;
             }
             break;
         case 10:
