@@ -258,10 +258,8 @@ public:
         archivo.open("Gobierno.txt");
         if (archivo.is_open())
         {
-            cout << "Archivo abierto" << endl;
             int tamanoUsuarios;
             archivo >> tamanoUsuarios;
-            cout << "Usuarios: " << tamanoUsuarios << endl;
             string nombre, nombreProducto, descripcion;
             int dinero, precio, cantidad, tamanoCarrito;
             Usuario usuario;
@@ -270,43 +268,28 @@ public:
             {
                 archivo >> nombre;
                 archivo >> dinero;
-                cout << "Usuario: " << nombre << endl;
-                cout << "Dinero: " << dinero << endl;
                 usuario = Usuario(nombre, dinero);
-                cout << "Carrito: " << endl;
                 archivo >> tamanoCarrito;
-                cout << "Cantidad de productos: " << tamanoCarrito << endl;
                 for (int j = 0; j < tamanoCarrito; j++)
                 {
                     archivo >> nombreProducto;
                     archivo >> descripcion;
                     archivo >> precio;
                     archivo >> cantidad;
-                    cout << "Producto: " << nombreProducto << endl;
-                    cout << "Descripcion: " << descripcion << endl;
-                    cout << "Precio: " << precio << endl;
-                    cout << "Cantidad: " << cantidad << endl;
-
                     producto = Producto(nombreProducto, descripcion, precio, cantidad);
-                    cout << "Producto agregado" << endl;
                     usuario.agregarProducto(producto);
-                    cout << "Producto agregado al carrito" << endl;
                 }
                 usuarios.agregar(usuario);
-                cout << "Usuario agregado" << endl;
             }
-            cout << "Usuarios cargados" << endl;
+
             int tamanoEmpresas, tamanoProductos;
             archivo >> tamanoEmpresas;
-            cout << "Empresas: " << tamanoEmpresas << endl;
             string nombreEmpresa;
             Empresa empresa;
             for (int i = 0; i < tamanoEmpresas; i++)
             {
                 archivo >> nombreEmpresa;
                 archivo >> tamanoProductos;
-                cout << "Empresa: " << nombreEmpresa << endl;
-                cout << "Cantidad de productos: " << tamanoProductos << endl;
                 empresa = Empresa(nombreEmpresa);
                 for (int j = 0; j < tamanoProductos; j++)
                 {
@@ -314,19 +297,7 @@ public:
                     archivo >> descripcion;
                     archivo >> precio;
                     archivo >> cantidad;
-                    cout << "Producto: " << nombreProducto << endl;
-                    cout << "Descripcion: " << descripcion << endl;
-                    cout << "Precio: " << precio << endl;
-                    cout << "Cantidad: " << cantidad << endl;
-                    //producto = Producto(nombreProducto, descripcion, precio, cantidad);
-                    cout << "Producto agregado" << endl;
-                    //Verificar si el producto se guardo bien
-                    /*cout << "nom: " << producto.getNombre() << endl;
-                    cout << "des: " << producto.getDescripcion() << endl;
-                    cout << "pre: " << producto.getPrecio() << endl;
-                    cout << "can: " << producto.getCantidad() << endl;*/
                     empresa.agregarProducto(Producto(nombreProducto, descripcion, precio, cantidad));
-                    cout << "Producto agregado a la empresa" << endl;
                 }
                 empresas.agregar(empresa);
             }

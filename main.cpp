@@ -33,6 +33,7 @@ int main()
 
         cout << "Ingrese una opcion: ";
         cin >> opcion;
+        system("cls");
         string nombre, nombreEmpresa, nombreProducto, descripcion, compra;
         Arreglo<Producto> productos;
         Arreglo<Usuario> usuarios;
